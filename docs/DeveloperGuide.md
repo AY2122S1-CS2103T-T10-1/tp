@@ -9,7 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -257,13 +257,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+* Students, Professors and Teaching Assistants
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Helps to improve connectivity among students and teaching staff
 
 
 ### User stories
@@ -293,71 +294,186 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `CohortConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-6. **Use case: Show a person's details using Index**
+**Use Case 1: Add user**
 
-    **MSS**
+MSS
+1. User enters command to add a contact.
+2. CohortConnect shows a successfully added message.
+3. CohortConnect shows the updated list of contacts.
 
-    1.  User requests to list persons
-    2.  CohortConnect shows a list of persons
-    3.  User requests to show details of person at a specific index in the list
-    4.  CohortConnect shows a pop-up with the person's details
+   Use case ends.
 
-        Use case ends.
+Extensions
 
-    **Extensions**
+* 1a. The input command is invalid.
+  * 1a1. CohortConnect shows an error message.
+  * 1a2. CohortConnect requests for correct format.
+  * 1a3. User enters new data.
+  * 1a1-1a3 are repeated until the data entered are valid.
+  * Use case resumes from step 2.
 
-    * 2a. The list is empty.
+* 1b. User enters an existing name.
+  * 1b1. CohortConnect prompts that name is already taken.
+  * 1b2. CohortConnect requests for correct format.
+  * 1b3. User enters new data.
+  * Steps 1b1-1b3 are repeated until the data entered are valid.
+  * Use case resumes from step 2.
+
+**Use Case 2: Edit user**
+
+MSS
+1. User enters command to edit a contact.
+2. CohortConnect shows a successfully edited message.
+3. CohortConnect shows the updated list of contacts.
+
+   Use case ends.
+
+Extensions
+
+* 1a. The given index is not present.
+  * 1a1. CohortConnect shows an error message.
+  * 1a2. CohortConnect requests for correct format.
+  * 1a3. User enters new data.
+  * Steps 1a1-1a3 are repeated until the data entered are valid.
+  * Use case resumes from step 2.
+
+**Use Case 3: Delete user**
+
+MSS
+1. User enters command to delete a contact.
+2. CohortConnect shows a successfully deleted message.
+3. CohortConnect shows the updated list of contacts.
+
+   Use case ends.
+
+Extensions
+    
+* 1a. The given index is not present.
+  * 1a1. CohortConnect shows an error message.
+  * 1a2. CohortConnect requests for correct format.
+  * 1a3. User enters new data.
+  * Steps 1a1-1a3 are repeated until the data entered are valid.
+  * Use case resumes from step 2.
+  
+**Use Case 4: Find a contact using name**
+**MSS**
+1. User enters command to find a contact by name
+2. CohortConnect shows list of contacts with matching name
+
+   Use case ends.
+        
+**Extensions**
+    
+* 1a. The given name is not present.
+  * 1a1. CohortConnect shows an error message.
+  * Use case ends.
+
+* 2a. The list is empty.
+  * Use case ends.
+    
+**Use Case 5: Find a contact using tag**
+**MSS**
+1.  User enters command to find a contact by tag
+2.  CohortConnect shows list of contacts labelled with matching tag
+    
+    Use case ends.
+        
+**Extensions**
+    
+* 1a. The given tag doesn't exist.
+  * 1a1. CohortConnect shows an error message.
+        
+* 2a. The list is empty.
+  * Use case ends.
+
+
+**Use Case 6: Show a person's details using Index**
+**MSS**
+1.  User requests to list persons
+2.  CohortConnect shows a list of persons
+3.  User requests to show details of person at a specific index in the list
+4.  CohortConnect shows a pop-up with the person's details
 
     Use case ends.
 
-    * 3a. The given index is invalid.
+**Extensions**
 
-        * 3a1. CohortConnect shows an error message.
+* 2a. The list is empty.
+  * Use case ends.
 
-      Use case resumes at step 2.
+* 3a. The given index is invalid.
+  * 3a1. CohortConnect shows an error message.
+  * Use case resumes at step 2.
     
 
-7. **Use case: Show a person's details using Name**
-
-    **MSS**
-
-    1.  User requests to list persons
-    2.  CohortConnect shows a list of persons
-    3.  User requests to show details of a specific person in the list
-    4.  CohortConnect shows a pop-up with the person's details
-
-        Use case ends.
-
-    **Extensions**
-
-    * 2a. The list is empty.
-
+**Use Case 7: Show a person's details using Name**
+**MSS**
+1.  User requests to list persons
+2.  CohortConnect shows a list of persons
+3.  User requests to show details of a specific person in the list
+4.  CohortConnect shows a pop-up with the person's details
+    
     Use case ends.
 
-    * 3a. The given name is invalid.
+**Extensions**
 
-        * 3a1. CohortConnect shows an error message.
+* 2a. The list is empty.
+  * Use case ends.
 
-        Use case resumes at step 2.
+* 3a. The given name is not present.
+  * 3a1. CohortConnect shows an error message.
+  * Use case resumes at step 2.
 
-    * 4a. Multiple matching names.
+* 3b. Multiple matching names.
+  * 3b1. CohortConnect shows an error message.
+  * 3b2. Displays list of users with the same name.
+  * Use case resumes at step 2.
 
-        * 4a1. CohortConnect shows an error message.
+**Use Case 8: Import contacts from JSON file**
+**MSS**
+1. User enters command to import from a JSON file.
+2. CohortConnect shows a list of persons to be imported.
+3. User confirms the import.
+4. CohortConnect shows the updated list of contacts.
+   
+   Use case ends.
 
-        Use case resumes at step 2.
+**Extensions**
+
+* 1a. CohortConnect cannot find the JSON file.
+  * 1a1. CohortConnect shows an error.
+  * Use case ends.
+
+* 2a. User decides to cancel the import.
+  * Use case ends.
+
+**Use Case 9: Export contacts to JSON file**
+**MSS**
+1. User enters command to export contacts to a named JSON file.
+2. CohortConnect shows a success message.
+   
+   Use case ends.
+
+**Extensions**
+
+* 1a. File name already exists.
+  * 1a1. CohortConnect shows an error.
+  * Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Data should be saved locally.
+5. Product is not required to handle communication between users.
 
-*{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Main Success Scenario (MSS)**: The most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 
 --------------------------------------------------------------------------------------------------------------------
 
